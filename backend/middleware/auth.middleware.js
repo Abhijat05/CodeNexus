@@ -12,6 +12,7 @@ export const authUser = async (req, res, next) => {
     const isBlackListed = await redisClient.get(token);
 
     if (isBlackListed) {
+      res.cookies('token', '');
       return res.status(401).send({ error: "Unauthorised Access" });
     }
 
